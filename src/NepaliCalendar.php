@@ -116,8 +116,6 @@ class NepaliCalendar {
 		90 => array( 2090, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30 ),
 	);
 
-	public $debug_info = '';
-
 	/**
 	 * Calculates wheather english year is leap year or not.
 	 *
@@ -128,14 +126,14 @@ class NepaliCalendar {
 	 */
 	private function is_leap_year( $year ) {
 		$a = $year;
-		if ( $a % 100 == 0 ) {
-			if ( $a % 400 == 0 ) {
+		if ( 0 === $a % 100 ) {
+			if ( 0 === $a % 400 ) {
 				return true;
 			} else {
 				return false;
 			}
 		} else {
-			if ( $a % 4 == 0 ) {
+			if ( 0 === $a % 4 ) {
 				return true;
 			} else {
 				return false;
@@ -143,7 +141,18 @@ class NepaliCalendar {
 		}
 	}
 
-	private function isDateInRange( $y, $m, $d, $type = 'ad' ) {
+	/**
+	 * Check if given date is in range.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int    $y Year.
+	 * @param int    $m Month.
+	 * @param int    $d Day.
+	 * @param string $type Type.
+	 * @return bool True if date is in range.
+	 */
+	private function is_date_in_range( $y, $m, $d, $type = 'ad' ) {
 		$output = true;
 
 		$year_start  = 1944;
@@ -162,36 +171,49 @@ class NepaliCalendar {
 			$day_end     = 32;
 		}
 
-		if ( true !== $this->checkNumberInRange( $y, $year_start, $year_end ) ) {
+		if ( true !== $this->check_number_in_range( $y, $year_start, $year_end ) ) {
 			$output = false;
 		}
 
-		if ( true !== $this->checkNumberInRange( $m, $month_start, $month_end ) ) {
+		if ( true !== $this->check_number_in_range( $m, $month_start, $month_end ) ) {
 			$output = false;
 		}
 
-		if ( true !== $this->checkNumberInRange( $d, $day_start, $day_end ) ) {
+		if ( true !== $this->check_number_in_range( $d, $day_start, $day_end ) ) {
 			$output = false;
 		}
 
 		return $output;
 	}
 
-	private function checkNumberInRange( $value, $min, $max ) {
+	/**
+	 * Check if given number is in range.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int $value Value.
+	 * @param int $min Minimum number.
+	 * @param int $max Maximum number.
+	 * @return bool True if number is in range.
+	 */
+	private function check_number_in_range( $value, $min, $max ) {
 		return ( ( $min <= $value ) && ( $value <= $max ) );
 	}
 
 	/**
-	 * currently can only calculate the date between AD 1944-2033...
+	 * Convert English date to Nepali.
 	 *
-	 * @param unknown_type $yy
-	 * @param unknown_type $mm
-	 * @param unknown_type $dd
-	 * @return unknown
+	 * @since 1.0.0
+	 *
+	 * @param int $yy Year.
+	 * @param int $mm Month.
+	 * @param int $dd Day.
+	 * @return array Converted date.
+	 *
+	 * @throws Exception If date is not in range.
 	 */
-
 	public function eng_to_nep( $yy, $mm, $dd ) {
-		if ( true !== $this->isDateInRange( $yy, $mm, $dd, 'ad' ) ) {
+		if ( true !== $this->is_date_in_range( $yy, $mm, $dd, 'ad' ) ) {
 			throw new Exception( 'Given date is out of range.' );
 		} else {
 
@@ -199,59 +221,59 @@ class NepaliCalendar {
 			$month  = array( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 			$lmonth = array( 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
-			$def_eyy     = 1944;                                    // spear head english date...
+			$def_eyy     = 1944; // Spear head english date.
 			$def_nyy     = 2000;
 			$def_nmm     = 9;
-			$def_ndd     = 17 - 1;     // spear head nepali date...
-			$total_eDays = 0;
-			$total_nDays = 0;
+			$def_ndd     = 17 - 1; // Spear head nepali date.
+			$total_edays = 0;
+			$total_ndays = 0;
 			$a           = 0;
-			$day         = 7 - 1;     // all the initializations...
+			$day         = 7 - 1; // All the initializations.
 			$m           = 0;
 			$y           = 0;
 			$i           = 0;
 			$j           = 0;
-			$numDay      = 0;
+			$num_day     = 0;
 
-			// count total no. of days in-terms of year
-			for ( $i = 0; $i < ( $yy - $def_eyy ); $i++ ) { // total days for month calculation...(english)
-				if ( $this->is_leap_year( $def_eyy + $i ) == 1 ) {
+			// Count total no. of days in terms of year.
+			for ( $i = 0; $i < ( $yy - $def_eyy ); $i++ ) { // Total days for month calculation (english).
+				if ( true === $this->is_leap_year( $def_eyy + $i ) ) {
 					for ( $j = 0; $j < 12; $j++ ) {
-						$total_eDays += $lmonth[ $j ];
+						$total_edays += $lmonth[ $j ];
 					}
 				} else {
 					for ( $j = 0; $j < 12; $j++ ) {
-						$total_eDays += $month[ $j ];
+						$total_edays += $month[ $j ];
 					}
 				}
 			}
 
-			// count total no. of days in-terms of month
+			// Count total no. of days in terms of month.
 			for ( $i = 0; $i < ( $mm - 1 ); $i++ ) {
-				if ( $this->is_leap_year( $yy ) == 1 ) {
-					$total_eDays += $lmonth[ $i ];
+				if ( true === $this->is_leap_year( $yy ) ) {
+					$total_edays += $lmonth[ $i ];
 				} else {
-					$total_eDays += $month[ $i ];
+					$total_edays += $month[ $i ];
 				}
 			}
 
-			// count total no. of days in-terms of date
-			$total_eDays += $dd;
+			// Count total no. of days in terms of day.
+			$total_edays += $dd;
 
 			$i           = 0;
 			$j           = $def_nmm;
-			$total_nDays = $def_ndd;
+			$total_ndays = $def_ndd;
 			$m           = $def_nmm;
 			$y           = $def_nyy;
 
-			// count nepali date from array
-			while ( $total_eDays != 0 ) {
+			// Count nepali date from array.
+			while ( 0 !== $total_edays ) {
 				$a = $this->bs[ $i ][ $j ];
-				$total_nDays++;                     // count the days
-				$day++;                             // count the days interms of 7 days
-				if ( $total_nDays > $a ) {
+				$total_ndays++;                     // Count days.
+				$day++;                             // Count the days in terms of 7 days.
+				if ( $total_ndays > $a ) {
 					$m++;
-					$total_nDays = 1;
+					$total_ndays = 1;
 					$j++;
 				}
 				if ( $day > 7 ) {
@@ -265,88 +287,90 @@ class NepaliCalendar {
 					$j = 1;
 					$i++;
 				}
-				$total_eDays--;
+				$total_edays--;
 			}
 
-			$numDay = $day;
+			$num_day = $day;
 
 			$output = array(
 				'year'    => $y,
 				'month'   => $m,
-				'day'     => $total_nDays,
-				'weekday' => $numDay,
+				'day'     => $total_ndays,
+				'weekday' => $num_day,
 			);
 
 			return $output;
 		}
 	}
 
-
 	/**
-	 * currently can only calculate the date between BS 2000-2089
+	 * Convert Nepali date to English.
 	 *
-	 * @param unknown_type $yy
-	 * @param unknown_type $mm
-	 * @param unknown_type $dd
-	 * @return unknown
+	 * @since 1.0.0
+	 *
+	 * @param int $yy Year.
+	 * @param int $mm Month.
+	 * @param int $dd Day.
+	 * @return array Converted date.
+	 *
+	 * @throws Exception If date is not in range.
 	 */
 	public function nep_to_eng( $yy, $mm, $dd ) {
-
 		$def_eyy     = 1943;
 		$def_emm     = 4;
-		$def_edd     = 14 - 1;       // init english date.
+		$def_edd     = 14 - 1;       // Init english date.
 		$def_nyy     = 2000;
 		$def_nmm     = 1;
-		$def_ndd     = 1;        // equivalent nepali date.
-		$total_eDays = 0;
-		$total_nDays = 0;
+		$def_ndd     = 1;        // Equivalent nepali date.
+		$total_edays = 0;
+		$total_ndays = 0;
 		$a           = 0;
-		$day         = 4 - 1;     // initializations...
+		$day         = 4 - 1;     // Initializations.
 		$m           = 0;
 		$y           = 0;
 		$i           = 0;
 		$k           = 0;
-		$numDay      = 0;
+		$num_day     = 0;
 
 		$month  = array( 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 		$lmonth = array( 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
-		if ( true !== $this->isDateInRange( $yy, $mm, $dd, 'bs' ) ) {
+		if ( true !== $this->is_date_in_range( $yy, $mm, $dd, 'bs' ) ) {
 			throw new Exception( 'Given date is out of range.' );
 
 		} else {
 
-			// count total days in-terms of year
+			// Count total days in terms of year.
 			for ( $i = 0; $i < ( $yy - $def_nyy ); $i++ ) {
 				for ( $j = 1; $j <= 12; $j++ ) {
-					$total_nDays += $this->bs[ $k ][ $j ];
+					$total_ndays += $this->bs[ $k ][ $j ];
 				}
 				$k++;
 			}
 
-			// count total days in-terms of month
+			// Count total days in terms of month.
 			for ( $j = 1; $j < $mm; $j++ ) {
-				$total_nDays += $this->bs[ $k ][ $j ];
+				$total_ndays += $this->bs[ $k ][ $j ];
 			}
 
-			// count total days in-terms of dat
-			$total_nDays += $dd;
+			// Count total days in terms of day.
+			$total_ndays += $dd;
 
-			// calculation of equivalent english date...
-			$total_eDays = $def_edd;
+			// Calculation of equivalent english date.
+			$total_edays = $def_edd;
 			$m           = $def_emm;
 			$y           = $def_eyy;
-			while ( $total_nDays != 0 ) {
+			while ( 0 !== $total_ndays ) {
 				if ( $this->is_leap_year( $y ) ) {
 					$a = $lmonth[ $m ];
 				} else {
 					$a = $month[ $m ];
 				}
-				$total_eDays++;
+				$total_edays++;
 				$day++;
-				if ( $total_eDays > $a ) {
+				if ( $total_edays > $a ) {
 					$m++;
-					$total_eDays = 1;
+					$total_edays = 1;
 					if ( $m > 12 ) {
 						$y++;
 						$m = 1;
@@ -355,15 +379,15 @@ class NepaliCalendar {
 				if ( $day > 7 ) {
 					$day = 1;
 				}
-				$total_nDays--;
+				$total_ndays--;
 			}
-			$numDay = $day;
+			$num_day = $day;
 
 			$output = array(
 				'year'    => $y,
 				'month'   => $m,
-				'day'     => $total_eDays,
-				'weekday' => $numDay,
+				'day'     => $total_edays,
+				'weekday' => $num_day,
 			);
 
 			return $output;
