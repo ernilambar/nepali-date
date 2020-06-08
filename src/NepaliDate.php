@@ -75,8 +75,25 @@ class NepaliDate {
 		return $output;
 	}
 
-	public function get_date_detail() {
+	/**
+	 * Get formatted date.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param array  $date Date details.
+	 * @param string $format Format.
+	 * @return string Formatted date.
+	 */
+	public function get_formatted_date( $date, $format ) {
+		$output = '';
 
+		$find = array_keys( $date );
+
+		$replace = array_values( $date );
+
+		$output = str_replace( $find, $replace, $format );
+
+		return $output;
 	}
 
 	/**
@@ -88,32 +105,32 @@ class NepaliDate {
 	 * @param string $language Language.
 	 * @return array Date details.
 	 */
-	private function get_date_all_details( $date, $language ) {
+	public function get_date_details( $date, $language = 'np' ) {
 		$output = array();
 
 		// Year two digit.
 		$year2 = substr( $date['year'], -2 );
 
 		if ( 'np' === $language ) {
-			$output['Y'] = ns_nepali_date_get_nepali_number( $date['year'] );
-			$output['y'] = ns_nepali_date_get_nepali_number( $year2 );
-			$output['j'] = ns_nepali_date_get_nepali_number( $date['day'] );
-			$output['d'] = ns_nepali_date_get_nepali_number( $date['day'], true );
-			$output['F'] = ns_nepali_date_get_month_text( $date['month'], $language );
-			$output['n'] = ns_nepali_date_get_nepali_number( $date['month'] );
-			$output['m'] = ns_nepali_date_get_nepali_number( $date['month'], true );
-			$output['l'] = ns_nepali_date_get_nepali_day_text( $date['weekday'] );
-			$output['D'] = ns_nepali_date_get_nepali_day_text( $date['weekday'], 'D' );
+			$output['Y'] = $this->get_nepali_number( $date['year'] );
+			$output['y'] = $this->get_nepali_number( $year2 );
+			$output['j'] = $this->get_nepali_number( $date['day'] );
+			$output['d'] = $this->get_nepali_number( $date['day'], true );
+			$output['F'] = $this->get_month_text( $date['month'], $language );
+			$output['n'] = $this->get_nepali_number( $date['month'] );
+			$output['m'] = $this->get_nepali_number( $date['month'], true );
+			$output['l'] = $this->get_nepali_day_text( $date['weekday'] );
+			$output['D'] = $this->get_nepali_day_text( $date['weekday'], 'D' );
 		} else {
 			$output['Y'] = (string)$date['year'];
 			$output['y'] = $year2;
 			$output['j'] = (string)$date['day'];
 			$output['d'] = str_pad( $date['day'], 2, '0', STR_PAD_LEFT );
-			$output['F'] = ns_nepali_date_get_month_text( $date['month'], $language );
+			$output['F'] = $this->get_month_text( $date['month'], $language );
 			$output['n'] = (string)$date['month'];
 			$output['m'] = str_pad( $date['month'], 2, '0', STR_PAD_LEFT );
-			$output['l'] = ns_nepali_date_get_english_day_text( $date['weekday'] );
-			$output['D'] = ns_nepali_date_get_english_day_text( $date['weekday'], 'D' );
+			$output['l'] = $this->get_english_day_text( $date['weekday'] );
+			$output['D'] = $this->get_english_day_text( $date['weekday'], 'D' );
 		}
 
 		return $output;
@@ -167,7 +184,7 @@ class NepaliDate {
 	private function get_nepali_day_text( $day, $format = 'l' ) {
 		$output = '';
 
-		$details = ns_nepali_date_get_nepali_week_details();
+		$details = $this->get_nepali_week_details();
 
 		if ( isset( $details[ $day ][ $format ] ) ) {
 			$output = $details[ $day ][ $format ];
@@ -188,7 +205,7 @@ class NepaliDate {
 	private function get_english_day_text( $day, $format = 'l' ) {
 		$output = '';
 
-		$details = ns_nepali_date_get_english_week_details();
+		$details = $this->get_english_week_details();
 
 		if ( isset( $details[ $day ][ $format ] ) ) {
 			$output = $details[ $day ][ $format ];
@@ -209,7 +226,7 @@ class NepaliDate {
 	function get_month_text( $month, $language = 'en' ) {
 		$output = '';
 
-		$details = ns_nepali_date_get_nepali_month_details();
+		$details = $this->get_nepali_month_details();
 
 		if ( isset( $details[ $month ][ $language ] ) ) {
 			$output = $details[ $month ][ $language ];
@@ -363,6 +380,4 @@ class NepaliDate {
 
 		return $output;
 	}
-
-
 }
