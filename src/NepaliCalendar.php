@@ -1,7 +1,27 @@
 <?php
+/**
+ * Calendar class
+ *
+ * @package NepaliDate
+ */
+
 namespace ErNilambar\NepaliDate;
 
+use \Exception as Exception;
+
+/**
+ * NepaliCalendar class.
+ *
+ * @since 1.0.0
+ */
 class NepaliCalendar {
+	/**
+	 * Nepali date details.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @var array
+	 */
 	private $bs = array(
 		0  => array( 2000, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31 ),
 		1  => array( 2001, 31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30 ),
@@ -96,28 +116,17 @@ class NepaliCalendar {
 		90 => array( 2090, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 30, 30 ),
 	);
 
-	private $nep_date  = array(
-		'year'    => '',
-		'month'   => '',
-		'day'     => '',
-		'weekday' => '',
-	);
-	private $eng_date  = array(
-		'year'    => '',
-		'month'   => '',
-		'day'     => '',
-		'weekday' => '',
-	);
 	public $debug_info = '';
 
-
 	/**
-	 * Calculates wheather english year is leap year or not
+	 * Calculates wheather english year is leap year or not.
 	 *
-	 * @param integer $year
-	 * @return boolean
+	 * @since 1.0.0
+	 *
+	 * @param integer $year Year.
+	 * @return boolean True if leap year.
 	 */
-	public function is_leap_year( $year ) {
+	private function is_leap_year( $year ) {
 		$a = $year;
 		if ( $a % 100 == 0 ) {
 			if ( $a % 400 == 0 ) {
@@ -134,44 +143,43 @@ class NepaliCalendar {
 		}
 	}
 
-	private function is_range_eng( $yy, $mm, $dd ) {
-		if ( $yy < 1944 || $yy > 2033 ) {
-			$this->debug_info = 'Supported only between 1944-2022';
-			return false;
+	private function isDateInRange( $y, $m, $d, $type = 'ad' ) {
+		$output = true;
+
+		$year_start  = 1944;
+		$year_end    = 2033;
+		$month_start = 1;
+		$month_end   = 12;
+		$day_start   = 1;
+		$day_end     = 31;
+
+		if ( 'bs' === $type ) {
+			$year_start  = 2000;
+			$year_end    = 2089;
+			$month_start = 1;
+			$month_end   = 12;
+			$day_start   = 1;
+			$day_end     = 32;
 		}
 
-		if ( $mm < 1 || $mm > 12 ) {
-			$this->debug_info = 'Error! value 1-12 only';
-			return false;
+		if ( true !== $this->checkNumberInRange( $y, $year_start, $year_end ) ) {
+			$output = false;
 		}
 
-		if ( $dd < 1 || $dd > 31 ) {
-			$this->debug_info = 'Error! value 1-31 only';
-			return false;
+		if ( true !== $this->checkNumberInRange( $m, $month_start, $month_end ) ) {
+			$output = false;
 		}
 
-		return true;
+		if ( true !== $this->checkNumberInRange( $d, $day_start, $day_end ) ) {
+			$output = false;
+		}
+
+		return $output;
 	}
 
-	private function is_range_nep( $yy, $mm, $dd ) {
-		if ( $yy < 2000 || $yy > 2089 ) {
-			$this->debug_info = 'Supported only between 2000-2089';
-			return false;
-		}
-
-		if ( $mm < 1 || $mm > 12 ) {
-			$this->debug_info = 'Error! value 1-12 only';
-			return false;
-		}
-
-		if ( $dd < 1 || $dd > 32 ) {
-			$this->debug_info = 'Error! value 1-31 only';
-			return false;
-		}
-
-		return true;
+	private function checkNumberInRange( $value, $min, $max ) {
+		return ( ( $min <= $value ) && ( $value <= $max ) );
 	}
-
 
 	/**
 	 * currently can only calculate the date between AD 1944-2033...
@@ -183,9 +191,8 @@ class NepaliCalendar {
 	 */
 
 	public function eng_to_nep( $yy, $mm, $dd ) {
-		// echo '--eng bhitra'.$yy.' '.$mm.'  '.$dd;
-		if ( $this->is_range_eng( $yy, $mm, $dd ) == false ) {
-			return false;
+		if ( true !== $this->isDateInRange( $yy, $mm, $dd, 'ad' ) ) {
+			throw new Exception( 'Given date is out of range.' );
 		} else {
 
 			// english month data.
@@ -263,12 +270,14 @@ class NepaliCalendar {
 
 			$numDay = $day;
 
-			$this->nep_date['year']    = $y;
-			$this->nep_date['month']   = $m;
-			$this->nep_date['day']     = $total_nDays;
-			$this->nep_date['weekday'] = $numDay;
+			$output = array(
+				'year'    => $y,
+				'month'   => $m,
+				'day'     => $total_nDays,
+				'weekday' => $numDay,
+			);
 
-			return $this->nep_date;
+			return $output;
 		}
 	}
 
@@ -302,8 +311,8 @@ class NepaliCalendar {
 		$month  = array( 0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 		$lmonth = array( 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
-		if ( $this->is_range_nep( $yy, $mm, $dd ) === false ) {
-			return false;
+		if ( true !== $this->isDateInRange( $yy, $mm, $dd, 'bs' ) ) {
+			throw new Exception( 'Given date is out of range.' );
 
 		} else {
 
@@ -350,12 +359,14 @@ class NepaliCalendar {
 			}
 			$numDay = $day;
 
-			$this->eng_date['year']    = $y;
-			$this->eng_date['month']   = $m;
-			$this->eng_date['day']     = $total_eDays;
-			$this->eng_date['weekday'] = $numDay;
+			$output = array(
+				'year'    => $y,
+				'month'   => $m,
+				'day'     => $total_eDays,
+				'weekday' => $numDay,
+			);
 
-			return $this->eng_date;
+			return $output;
 		}
 	}
 
