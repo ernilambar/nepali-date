@@ -75,6 +75,10 @@ class NepaliDate {
 		return $output;
 	}
 
+	public function get_date_detail() {
+
+	}
+
 	/**
 	 * Get date details.
 	 *
@@ -84,7 +88,7 @@ class NepaliDate {
 	 * @param string $language Language.
 	 * @return array Date details.
 	 */
-	private function get_date_details( $date, $language ) {
+	private function get_date_all_details( $date, $language ) {
 		$output = array();
 
 		// Year two digit.
