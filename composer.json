@@ -1,0 +1,26 @@
+{
+  "name"        : "ernilambar/nepali-date",
+  "description" : "Nepali Date",
+  "keywords"    : [ "date" ],
+  "homepage"    : "https://github.com/ernilambar/nepali-date",
+  "license"     : "MIT",
+  "authors"     : [
+    {
+      "name"     : "Nilambar Sharma",
+      "email"    : "nilambar@outlook.com",
+      "homepage" : "https://www.nilambar.net",
+      "role"     : "Developer"
+    }
+  ],
+  "support"     : {
+    "issues" : "https://github.com/ernilambar/nepali-date/issues"
+  },
+  "autoload"    : {
+    "psr-4": { 
+      "ErNilambar\\NepaliDate\\": "src/" 
+    }
+  },
+  "require"     : {
+    "php" : ">=5.6"
+  }
+}
