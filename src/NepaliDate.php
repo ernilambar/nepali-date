@@ -106,50 +106,35 @@ class NepaliDate
     }
 
     /**
-     * Get details by BS date.
+     * Get date details by given date.
      *
      * @since 1.0.0
      *
      * @param int    $y Year.
      * @param int    $m Month.
      * @param int    $d Day.
+     * @param string $type Type.
      * @param string $language Language.
      * @return array Date details.
      */
-    public function getDetailsByBs($y, $m, $d, $language = 'en')
+    public function getDetails($y, $m, $d, $type, $language = 'en')
     {
-        $date = $this->validateDate($y, $m, $d, 'bs');
-
         $output = array();
 
-        if ($date) {
-            $output = $this->getDateDetails($date, $language);
-        }
+        if ('bs' === $type) {
+            $date = $this->validateDate($y, $m, $d, 'bs');
 
-        return $output;
-    }
+            if ($date) {
+                $output = $this->getDateDetails($date, $language);
+            }
+        } elseif ('ad' === $type) {
+            $date = $this->validateDate($y, $m, $d, 'ad');
 
-    /**
-     * Get details by AD date.
-     *
-     * @since 1.0.0
-     *
-     * @param int    $y Year.
-     * @param int    $m Month.
-     * @param int    $d Day.
-     * @param string $language Language.
-     * @return array Date details.
-     */
-    public function getDetailsByAd($y, $m, $d, $language = 'en')
-    {
-        $date = $this->validateDate($y, $m, $d, 'ad');
+            if ($date) {
+                $new_date = $this->calendar->eng_to_nep($y, $m, $d);
 
-        $output = array();
-
-        if ($date) {
-            $new_date = $this->calendar->eng_to_nep($y, $m, $d);
-
-            $output = $this->getDateDetails($new_date, $language);
+                $output = $this->getDateDetails($new_date, $language);
+            }
         }
 
         return $output;
