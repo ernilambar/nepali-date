@@ -105,7 +105,7 @@ class NepaliDate {
 	 * @param string $language Language.
 	 * @return array Date details.
 	 */
-	public function get_date_details( $date, $language = 'np' ) {
+	public function get_date_details( $date, $language = 'en' ) {
 		$output = array();
 
 		// Year two digit.
@@ -122,12 +122,12 @@ class NepaliDate {
 			$output['l'] = $this->get_nepali_day_text( $date['weekday'] );
 			$output['D'] = $this->get_nepali_day_text( $date['weekday'], 'D' );
 		} else {
-			$output['Y'] = (string)$date['year'];
+			$output['Y'] = (string) $date['year'];
 			$output['y'] = $year2;
-			$output['j'] = (string)$date['day'];
+			$output['j'] = (string) $date['day'];
 			$output['d'] = str_pad( $date['day'], 2, '0', STR_PAD_LEFT );
 			$output['F'] = $this->get_month_text( $date['month'], $language );
-			$output['n'] = (string)$date['month'];
+			$output['n'] = (string) $date['month'];
 			$output['m'] = str_pad( $date['month'], 2, '0', STR_PAD_LEFT );
 			$output['l'] = $this->get_english_day_text( $date['weekday'] );
 			$output['D'] = $this->get_english_day_text( $date['weekday'], 'D' );
@@ -223,7 +223,7 @@ class NepaliDate {
 	 * @param string $language Language.
 	 * @return string Month text.
 	 */
-	function get_month_text( $month, $language = 'en' ) {
+	private function get_month_text( $month, $language = 'en' ) {
 		$output = '';
 
 		$details = $this->get_nepali_month_details();
