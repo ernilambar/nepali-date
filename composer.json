@@ -15,6 +15,9 @@
   "support"     : {
     "issues" : "https://github.com/ernilambar/nepali-date/issues"
   },
+  "scripts": {
+    "test": "phpunit"
+  },
   "autoload"    : {
     "psr-4": { 
       "ErNilambar\\NepaliDate\\": "src/" 
