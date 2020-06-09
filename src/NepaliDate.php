@@ -48,9 +48,11 @@ class NepaliDate {
 	public function ad_to_bs( $y, $m, $d ) {
 		$output = array();
 
-		$new_date = $this->calendar->eng_to_nep( $y, $m, $d );
+		$date = $this->validate_date( $y, $m, $d, 'ad' );
 
-		$output = $new_date;
+		if ( ! empty( $date ) ) {
+			$output = $this->calendar->eng_to_nep( $y, $m, $d );
+		}
 
 		return $output;
 	}
@@ -68,12 +70,10 @@ class NepaliDate {
 	public function bs_to_ad( $y, $m, $d ) {
 		$output = array();
 
-		$new_date = array();
+		$date = $this->validate_date( $y, $m, $d, 'bs' );
 
-		$new_date = $this->calendar->nep_to_eng( $y, $m, $d );
-
-		if ( is_array( $new_date ) && ! empty( $new_date ) ) {
-			$output = $new_date;
+		if ( ! empty( $date ) ) {
+			$output = $this->calendar->nep_to_eng( $y, $m, $d );
 		}
 
 		return $output;
@@ -153,18 +153,17 @@ class NepaliDate {
 			 		}
 			 	}
 			 }
-
 		}
 
 		return $output;
 	}
 
 	/**
-	 * Get date details.
+	 * Get BS date details.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @param array  $date Date.
+	 * @param array  $date Date in BS.
 	 * @param string $language Language.
 	 * @return array Date details.
 	 */
