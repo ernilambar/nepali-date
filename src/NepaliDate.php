@@ -100,6 +100,17 @@ class NepaliDate {
 		return $output;
 	}
 
+	/**
+	 * Get details by BS date.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int    $y Year.
+	 * @param int    $m Month.
+	 * @param int    $d Day.
+	 * @param string $language Language.
+	 * @return array Date details.
+	 */
 	public function get_details_by_bs( $y, $m, $d, $language = 'en' ) {
 		$date = $this->validate_date( $y, $m, $d, 'bs' );
 
@@ -112,6 +123,17 @@ class NepaliDate {
 		return $output;
 	}
 
+	/**
+	 * Get details by AD date.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int    $y Year.
+	 * @param int    $m Month.
+	 * @param int    $d Day.
+	 * @param string $language Language.
+	 * @return array Date details.
+	 */
 	public function get_details_by_ad( $y, $m, $d, $language = 'en' ) {
 		$date = $this->validate_date( $y, $m, $d, 'ad' );
 
@@ -126,6 +148,17 @@ class NepaliDate {
 		return $output;
 	}
 
+	/**
+	 * Validate date.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param int    $y Year.
+	 * @param int    $m Month.
+	 * @param int    $d Day.
+	 * @param string $type Type.
+	 * @return array Date detail.
+	 */
 	public function validate_date( $y, $m, $d, $type ) {
 		$output = array();
 
@@ -133,26 +166,26 @@ class NepaliDate {
 			$new_date = $this->calendar->nep_to_eng( $y, $m, $d );
 
 			if ( is_array( $new_date ) && ! empty( $new_date ) ) {
-			 	$temp_date = $this->calendar->eng_to_nep( $new_date['year'], $new_date['month'], $new_date['day'] );
+				$temp_date = $this->calendar->eng_to_nep( $new_date['year'], $new_date['month'], $new_date['day'] );
 
-			 	if ( is_array( $temp_date ) && ! empty( $temp_date ) ) {
-			 		if ( intval( $y ) === intval( $temp_date['year'] ) && intval( $m ) === intval( $temp_date['month'] ) && intval( $d ) === intval( $temp_date['day'] ) ) {
-			 			$output = $temp_date;
-			 		}
-			 	}
-			 }
+				if ( is_array( $temp_date ) && ! empty( $temp_date ) ) {
+					if ( intval( $y ) === intval( $temp_date['year'] ) && intval( $m ) === intval( $temp_date['month'] ) && intval( $d ) === intval( $temp_date['day'] ) ) {
+						$output = $temp_date;
+					}
+				}
+			}
 		} else {
 			$new_date = $this->calendar->eng_to_nep( $y, $m, $d );
 
 			if ( is_array( $new_date ) && ! empty( $new_date ) ) {
-			 	$temp_date = $this->calendar->nep_to_eng( $new_date['year'], $new_date['month'], $new_date['day'] );
+				$temp_date = $this->calendar->nep_to_eng( $new_date['year'], $new_date['month'], $new_date['day'] );
 
-			 	if ( is_array( $temp_date ) && ! empty( $temp_date ) ) {
-			 		if ( intval( $y ) === intval( $temp_date['year'] ) && intval( $m ) === intval( $temp_date['month'] ) && intval( $d ) === intval( $temp_date['day'] ) ) {
-			 			$output = $temp_date;
-			 		}
-			 	}
-			 }
+				if ( is_array( $temp_date ) && ! empty( $temp_date ) ) {
+					if ( intval( $y ) === intval( $temp_date['year'] ) && intval( $m ) === intval( $temp_date['month'] ) && intval( $d ) === intval( $temp_date['day'] ) ) {
+						$output = $temp_date;
+					}
+				}
+			}
 		}
 
 		return $output;
