@@ -47,11 +47,11 @@ class NepaliDate
      * @param int $d Day.
      * @return array Converted date.
      */
-    public function ad_to_bs($y, $m, $d)
+    public function convertAdToBs($y, $m, $d)
     {
         $output = array();
 
-        $date = $this->validate_date($y, $m, $d, 'ad');
+        $date = $this->validateDate($y, $m, $d, 'ad');
 
         if (! empty($date)) {
             $output = $this->calendar->eng_to_nep($y, $m, $d);
@@ -70,11 +70,11 @@ class NepaliDate
      * @param int $d Day.
      * @return array Converted date.
      */
-    public function bs_to_ad($y, $m, $d)
+    public function convertBsToAd($y, $m, $d)
     {
         $output = array();
 
-        $date = $this->validate_date($y, $m, $d, 'bs');
+        $date = $this->validateDate($y, $m, $d, 'bs');
 
         if (! empty($date)) {
             $output = $this->calendar->nep_to_eng($y, $m, $d);
@@ -92,7 +92,7 @@ class NepaliDate
      * @param string $format Format.
      * @return string Formatted date.
      */
-    public function get_formatted_date($date, $format)
+    public function getFormattedDate($date, $format)
     {
         $output = '';
 
@@ -116,14 +116,14 @@ class NepaliDate
      * @param string $language Language.
      * @return array Date details.
      */
-    public function get_details_by_bs($y, $m, $d, $language = 'en')
+    public function getDetailsByBs($y, $m, $d, $language = 'en')
     {
-        $date = $this->validate_date($y, $m, $d, 'bs');
+        $date = $this->validateDate($y, $m, $d, 'bs');
 
         $output = array();
 
         if ($date) {
-            $output = $this->get_date_details($date, $language);
+            $output = $this->getDateDetails($date, $language);
         }
 
         return $output;
@@ -140,16 +140,16 @@ class NepaliDate
      * @param string $language Language.
      * @return array Date details.
      */
-    public function get_details_by_ad($y, $m, $d, $language = 'en')
+    public function getDetailsByAd($y, $m, $d, $language = 'en')
     {
-        $date = $this->validate_date($y, $m, $d, 'ad');
+        $date = $this->validateDate($y, $m, $d, 'ad');
 
         $output = array();
 
         if ($date) {
             $new_date = $this->calendar->eng_to_nep($y, $m, $d);
 
-            $output = $this->get_date_details($new_date, $language);
+            $output = $this->getDateDetails($new_date, $language);
         }
 
         return $output;
@@ -166,7 +166,7 @@ class NepaliDate
      * @param string $type Type.
      * @return array Date detail.
      */
-    public function validate_date($y, $m, $d, $type)
+    public function validateDate($y, $m, $d, $type)
     {
         $output = array();
 
@@ -177,7 +177,9 @@ class NepaliDate
                 $temp_date = $this->calendar->eng_to_nep($new_date['year'], $new_date['month'], $new_date['day']);
 
                 if (is_array($temp_date) && ! empty($temp_date)) {
-                    if (intval($y) === intval($temp_date['year']) && intval($m) === intval($temp_date['month']) && intval($d) === intval($temp_date['day'])) {
+                    if (intval($y) === intval($temp_date['year'])
+                        && intval($m) === intval($temp_date['month'])
+                        && intval($d) === intval($temp_date['day'])) {
                         $output = $temp_date;
                     }
                 }
@@ -189,7 +191,9 @@ class NepaliDate
                 $temp_date = $this->calendar->nep_to_eng($new_date['year'], $new_date['month'], $new_date['day']);
 
                 if (is_array($temp_date) && ! empty($temp_date)) {
-                    if (intval($y) === intval($temp_date['year']) && intval($m) === intval($temp_date['month']) && intval($d) === intval($temp_date['day'])) {
+                    if (intval($y) === intval($temp_date['year'])
+                        && intval($m) === intval($temp_date['month'])
+                        && intval($d) === intval($temp_date['day'])) {
                         $output = $temp_date;
                     }
                 }
@@ -208,7 +212,7 @@ class NepaliDate
      * @param string $language Language.
      * @return array Date details.
      */
-    private function get_date_details($date, $language = 'en')
+    private function getDateDetails($date, $language = 'en')
     {
         $output = array();
 
@@ -216,25 +220,25 @@ class NepaliDate
         $year2 = substr($date['year'], -2);
 
         if ('np' === $language) {
-            $output['Y'] = $this->get_nepali_number($date['year']);
-            $output['y'] = $this->get_nepali_number($year2);
-            $output['j'] = $this->get_nepali_number($date['day']);
-            $output['d'] = $this->get_nepali_number($date['day'], true);
-            $output['F'] = $this->get_month_text($date['month'], $language);
-            $output['n'] = $this->get_nepali_number($date['month']);
-            $output['m'] = $this->get_nepali_number($date['month'], true);
-            $output['l'] = $this->get_nepali_day_text($date['weekday']);
-            $output['D'] = $this->get_nepali_day_text($date['weekday'], 'D');
+            $output['Y'] = $this->getNepaliNumber($date['year']);
+            $output['y'] = $this->getNepaliNumber($year2);
+            $output['j'] = $this->getNepaliNumber($date['day']);
+            $output['d'] = $this->getNepaliNumber($date['day'], true);
+            $output['F'] = $this->getMonthText($date['month'], $language);
+            $output['n'] = $this->getNepaliNumber($date['month']);
+            $output['m'] = $this->getNepaliNumber($date['month'], true);
+            $output['l'] = $this->getNepaliDayText($date['weekday']);
+            $output['D'] = $this->getNepaliDayText($date['weekday'], 'D');
         } else {
             $output['Y'] = (string) $date['year'];
             $output['y'] = $year2;
             $output['j'] = (string) $date['day'];
             $output['d'] = str_pad($date['day'], 2, '0', STR_PAD_LEFT);
-            $output['F'] = $this->get_month_text($date['month'], $language);
+            $output['F'] = $this->getMonthText($date['month'], $language);
             $output['n'] = (string) $date['month'];
             $output['m'] = str_pad($date['month'], 2, '0', STR_PAD_LEFT);
-            $output['l'] = $this->get_english_day_text($date['weekday']);
-            $output['D'] = $this->get_english_day_text($date['weekday'], 'D');
+            $output['l'] = $this->getEnglishDayText($date['weekday']);
+            $output['D'] = $this->getEnglishDayText($date['weekday'], 'D');
         }
 
         return $output;
@@ -250,7 +254,7 @@ class NepaliDate
      * @param int  $length Padding length.
      * @return string Translated number.
      */
-    private function get_nepali_number($number, $padding = false, $length = 2)
+    private function getNepaliNumber($number, $padding = false, $length = 2)
     {
         $new_numbers = array();
 
@@ -286,11 +290,11 @@ class NepaliDate
      * @param string $format Format.
      * @return string Week text.
      */
-    private function get_nepali_day_text($day, $format = 'l')
+    private function getNepaliDayText($day, $format = 'l')
     {
         $output = '';
 
-        $details = $this->get_nepali_week_details();
+        $details = $this->getNepaliWeekDetails();
 
         if (isset($details[ $day ][ $format ])) {
             $output = $details[ $day ][ $format ];
@@ -308,11 +312,11 @@ class NepaliDate
      * @param string $format Format.
      * @return string Week text.
      */
-    private function get_english_day_text($day, $format = 'l')
+    private function getEnglishDayText($day, $format = 'l')
     {
         $output = '';
 
-        $details = $this->get_english_week_details();
+        $details = $this->getEnglishWeekDetails();
 
         if (isset($details[ $day ][ $format ])) {
             $output = $details[ $day ][ $format ];
@@ -330,11 +334,11 @@ class NepaliDate
      * @param string $language Language.
      * @return string Month text.
      */
-    private function get_month_text($month, $language = 'en')
+    private function getMonthText($month, $language = 'en')
     {
         $output = '';
 
-        $details = $this->get_nepali_month_details();
+        $details = $this->getNepaliMonthDetails();
 
         if (isset($details[ $month ][ $language ])) {
             $output = $details[ $month ][ $language ];
@@ -350,7 +354,7 @@ class NepaliDate
      *
      * @return array Month details.
      */
-    private function get_nepali_month_details()
+    private function getNepaliMonthDetails()
     {
         $output = array(
             '1'  => array(
@@ -413,7 +417,7 @@ class NepaliDate
      *
      * @return array Week details.
      */
-    private function get_nepali_week_details()
+    private function getNepaliWeekDetails()
     {
         $output = array(
             '1' => array(
@@ -456,7 +460,7 @@ class NepaliDate
      *
      * @return array Week details.
      */
-    private function get_english_week_details()
+    private function getEnglishWeekDetails()
     {
         $output = array(
             '1' => array(
