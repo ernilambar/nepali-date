@@ -21,6 +21,28 @@ Use this to include autoload file.
 require_once __DIR__ . '/vendor/autoload.php';
 ```
 
+## Usage
+
+Examples:
+
+```php
+use ErNilambar\NepaliDate\NepaliDate;
+
+$obj = new NepaliDate();
+
+// Convert BS to AD.
+$date = $obj->convertBsToAd('2077', '1', '1');
+
+// Convert AD to BS.
+$date = $obj->convertAdToBs('2020', '1', '1');
+
+// Get Nepali date details by BS date.
+$date = $obj->getDetails('2077', '1', '1', 'bs');
+
+// Get Nepali date details by AD date.
+$date = $obj->getDetails('2020', '1', '1', 'ad');
+```
+
 ## Copyright and License
 
 This project is licensed under the [MIT](http://opensource.org/licenses/MIT).
