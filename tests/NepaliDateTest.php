@@ -17,7 +17,7 @@ final class NepaliDateTest extends TestCase
     		'd' => '1',
     	);
 
-    	$new_date = $obj->ad_to_bs( $src_date['y'], $src_date['m'], $src_date['d'] );
+    	$new_date = $obj->convertAdToBs( $src_date['y'], $src_date['m'], $src_date['d'] );
 
         $this->assertEquals( '2076', $new_date['year'] );
         $this->assertEquals( '9', $new_date['month'] );
@@ -38,7 +38,7 @@ final class NepaliDateTest extends TestCase
     		'd' => '1',
     	);
 
-    	$new_date = $obj->bs_to_ad( $src_date['y'], $src_date['m'], $src_date['d'] );
+    	$new_date = $obj->convertBsToAd( $src_date['y'], $src_date['m'], $src_date['d'] );
 
         $this->assertEquals( '2020', $new_date['year'] );
         $this->assertEquals( '4', $new_date['month'] );
