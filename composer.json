@@ -20,12 +20,12 @@
   },
   "autoload"    : {
     "psr-4": { 
-      "ErNilambar\\NepaliDate\\": "src/" 
+      "Nilambar\\NepaliDate\\": "src/" 
     }
   },
   "autoload-dev"    : {
     "psr-4": { 
-      "ErNilambar\\NepaliDate\\Test\\": "tests/" 
+      "Nilambar\\NepaliDate\\Test\\": "tests/" 
     }
   },
   "require"     : {

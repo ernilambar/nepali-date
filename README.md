@@ -26,7 +26,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 Examples:
 
 ```php
-use ErNilambar\NepaliDate\NepaliDate;
+use Nilambar\NepaliDate\NepaliDate;
 
 $obj = new NepaliDate();
 

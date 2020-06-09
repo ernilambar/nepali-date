@@ -5,7 +5,7 @@
  * @package NepaliDate
  */
 
-namespace ErNilambar\NepaliDate;
+namespace Nilambar\NepaliDate;
 
 /**
  * NepaliCalendar class.

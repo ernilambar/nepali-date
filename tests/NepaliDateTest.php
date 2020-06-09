@@ -1,8 +1,8 @@
 <?php
 
-namespace ErNilambar\NepaliDate\Test;
+namespace Nilambar\NepaliDate\Test;
 
-use ErNilambar\NepaliDate\NepaliDate;
+use Nilambar\NepaliDate\NepaliDate;
 use PHPUnit\Framework\TestCase;
 
 final class NepaliDateTest extends TestCase
