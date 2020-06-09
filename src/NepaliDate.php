@@ -54,7 +54,7 @@ class NepaliDate
         $date = $this->validateDate($y, $m, $d, 'ad');
 
         if (! empty($date)) {
-            $output = $this->calendar->eng_to_nep($y, $m, $d);
+            $output = $this->calendar->convertEnglishToNepali($y, $m, $d);
         }
 
         return $output;
@@ -77,7 +77,7 @@ class NepaliDate
         $date = $this->validateDate($y, $m, $d, 'bs');
 
         if (! empty($date)) {
-            $output = $this->calendar->nep_to_eng($y, $m, $d);
+            $output = $this->calendar->convertNepaliToEnglish($y, $m, $d);
         }
 
         return $output;
@@ -131,7 +131,7 @@ class NepaliDate
             $date = $this->validateDate($y, $m, $d, 'ad');
 
             if ($date) {
-                $new_date = $this->calendar->eng_to_nep($y, $m, $d);
+                $new_date = $this->calendar->convertEnglishToNepali($y, $m, $d);
 
                 $output = $this->getDateDetails($new_date, $language);
             }
@@ -156,10 +156,14 @@ class NepaliDate
         $output = array();
 
         if ('bs' === $type) {
-            $new_date = $this->calendar->nep_to_eng($y, $m, $d);
+            $new_date = $this->calendar->convertNepaliToEnglish($y, $m, $d);
 
             if (is_array($new_date) && ! empty($new_date)) {
-                $temp_date = $this->calendar->eng_to_nep($new_date['year'], $new_date['month'], $new_date['day']);
+                $temp_date = $this->calendar->convertEnglishToNepali(
+                    $new_date['year'],
+                    $new_date['month'],
+                    $new_date['day']
+                );
 
                 if (is_array($temp_date) && ! empty($temp_date)) {
                     if (intval($y) === intval($temp_date['year'])
@@ -170,10 +174,14 @@ class NepaliDate
                 }
             }
         } else {
-            $new_date = $this->calendar->eng_to_nep($y, $m, $d);
+            $new_date = $this->calendar->convertEnglishToNepali($y, $m, $d);
 
             if (is_array($new_date) && ! empty($new_date)) {
-                $temp_date = $this->calendar->nep_to_eng($new_date['year'], $new_date['month'], $new_date['day']);
+                $temp_date = $this->calendar->convertNepaliToEnglish(
+                    $new_date['year'],
+                    $new_date['month'],
+                    $new_date['day']
+                );
 
                 if (is_array($temp_date) && ! empty($temp_date)) {
                     if (intval($y) === intval($temp_date['year'])
