@@ -7,8 +7,6 @@
 
 namespace ErNilambar\NepaliDate;
 
-use \Exception as Exception;
-
 /**
  * NepaliCalendar class.
  *
@@ -153,7 +151,7 @@ class NepaliCalendar {
 	 * @param string $type Type.
 	 * @return bool True if date is in range.
 	 */
-	private function is_date_in_range( $y, $m, $d, $type = 'ad' ) {
+	public function is_date_in_range( $y, $m, $d, $type = 'ad' ) {
 		$output = true;
 
 		$year_start  = 1944;
@@ -210,12 +208,10 @@ class NepaliCalendar {
 	 * @param int $mm Month.
 	 * @param int $dd Day.
 	 * @return array Converted date.
-	 *
-	 * @throws Exception If date is not in range.
 	 */
 	public function eng_to_nep( $yy, $mm, $dd ) {
 		if ( true !== $this->is_date_in_range( $yy, $mm, $dd, 'ad' ) ) {
-			throw new Exception( 'Given date is out of range.' );
+			return;
 		} else {
 			// English month data.
 			$month  = array( 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
@@ -322,8 +318,6 @@ class NepaliCalendar {
 	 * @param int $mm Month.
 	 * @param int $dd Day.
 	 * @return array Converted date.
-	 *
-	 * @throws Exception If date is not in range.
 	 */
 	public function nep_to_eng( $yy, $mm, $dd ) {
 		$def_eyy = 1943;
@@ -349,7 +343,7 @@ class NepaliCalendar {
 		$lmonth = array( 0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 );
 
 		if ( true !== $this->is_date_in_range( $yy, $mm, $dd, 'bs' ) ) {
-			throw new Exception( 'Given date is out of range.' );
+			return;
 		} else {
 			// Count total days in terms of year.
 			for ( $i = 0; $i < ( $yy - $def_nyy ); $i++ ) {

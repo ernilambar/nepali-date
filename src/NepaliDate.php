@@ -68,9 +68,13 @@ class NepaliDate {
 	public function bs_to_ad( $y, $m, $d ) {
 		$output = array();
 
+		$new_date = array();
+
 		$new_date = $this->calendar->nep_to_eng( $y, $m, $d );
 
-		$output = $new_date;
+		if ( is_array( $new_date ) && ! empty( $new_date ) ) {
+			$output = $new_date;
+		}
 
 		return $output;
 	}
@@ -96,6 +100,65 @@ class NepaliDate {
 		return $output;
 	}
 
+	public function get_details_by_bs( $y, $m, $d, $language = 'en' ) {
+		$date = $this->validate_date( $y, $m, $d, 'bs' );
+
+		$output = array();
+
+		if ( $date ) {
+			$output = $this->get_date_details( $date, $language );
+		}
+
+		return $output;
+	}
+
+	public function get_details_by_ad( $y, $m, $d, $language = 'en' ) {
+		$date = $this->validate_date( $y, $m, $d, 'ad' );
+
+		$output = array();
+
+		if ( $date ) {
+			$new_date = $this->calendar->eng_to_nep( $y, $m, $d );
+
+			$output = $this->get_date_details( $new_date, $language );
+		}
+
+		return $output;
+	}
+
+	public function validate_date( $y, $m, $d, $type ) {
+		$output = array();
+
+		if ( 'bs' === $type ) {
+			$new_date = $this->calendar->nep_to_eng( $y, $m, $d );
+
+			if ( is_array( $new_date ) && ! empty( $new_date ) ) {
+			 	$temp_date = $this->calendar->eng_to_nep( $new_date['year'], $new_date['month'], $new_date['day'] );
+
+			 	if ( is_array( $temp_date ) && ! empty( $temp_date ) ) {
+			 		if ( intval( $y ) === intval( $temp_date['year'] ) && intval( $m ) === intval( $temp_date['month'] ) && intval( $d ) === intval( $temp_date['day'] ) ) {
+			 			$output = $temp_date;
+			 		}
+			 	}
+			 }
+		} else {
+			$new_date = $this->calendar->eng_to_nep( $y, $m, $d );
+
+			if ( is_array( $new_date ) && ! empty( $new_date ) ) {
+			 	$temp_date = $this->calendar->nep_to_eng( $new_date['year'], $new_date['month'], $new_date['day'] );
+
+			 	if ( is_array( $temp_date ) && ! empty( $temp_date ) ) {
+			 		if ( intval( $y ) === intval( $temp_date['year'] ) && intval( $m ) === intval( $temp_date['month'] ) && intval( $d ) === intval( $temp_date['day'] ) ) {
+			 			$output = $temp_date;
+			 		}
+			 	}
+			 }
+
+		}
+
+		return $output;
+	}
+
 	/**
 	 * Get date details.
 	 *
@@ -105,7 +168,7 @@ class NepaliDate {
 	 * @param string $language Language.
 	 * @return array Date details.
 	 */
-	public function get_date_details( $date, $language = 'en' ) {
+	private function get_date_details( $date, $language = 'en' ) {
 		$output = array();
 
 		// Year two digit.
@@ -349,32 +412,32 @@ class NepaliDate {
 	private function get_english_week_details() {
 		$output = array(
 			'1' => array(
-				'l' => 'Aaitabar',
-				'D' => 'Aaita',
+				'l' => 'Sunday',
+				'D' => 'Sun',
 			),
 			'2' => array(
-				'l' => 'Sombar',
-				'D' => 'Som',
+				'l' => 'Monday',
+				'D' => 'Mon',
 			),
 			'3' => array(
-				'l' => 'Mangalbar',
-				'D' => 'Mangal',
+				'l' => 'Tuesday',
+				'D' => 'Tue',
 			),
 			'4' => array(
-				'l' => 'Budhabar',
-				'D' => 'Budha',
+				'l' => 'Wednesday',
+				'D' => 'Wed',
 			),
 			'5' => array(
-				'l' => 'Bihibar',
-				'D' => 'Bihi',
+				'l' => 'Thursday',
+				'D' => 'Thu',
 			),
 			'6' => array(
-				'l' => 'Sukhrabar',
-				'D' => 'Sukhra',
+				'l' => 'Friday',
+				'D' => 'Fri',
 			),
 			'7' => array(
-				'l' => 'Sanibar',
-				'D' => 'Sani',
+				'l' => 'Saturday',
+				'D' => 'Sat',
 			),
 		);
 
