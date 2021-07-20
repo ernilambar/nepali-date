@@ -94,15 +94,7 @@ class NepaliDate
      */
     public function getFormattedDate($date, $format)
     {
-        $output = '';
-
-        $find = array_keys($date);
-
-        $replace = array_values($date);
-
-        $output = str_replace($find, $replace, $format);
-
-        return $output;
+    	return strtr($format, $date);
     }
 
     /**
