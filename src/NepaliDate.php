@@ -344,38 +344,38 @@ class NepaliDate
         $output = array(
             '1'  => array(
                 'en' => 'Baishakh',
-                'np' => 'बैसाख',
+                'np' => 'वैशाख',
             ),
             '2'  => array(
-                'en' => 'Jeth',
+                'en' => 'Jestha',
                 'np' => 'जेठ',
             ),
             '3'  => array(
-                'en' => 'Ashar',
+                'en' => 'Ashadh',
                 'np' => 'असार',
             ),
             '4'  => array(
                 'en' => 'Shrawan',
-                'np' => 'श्रावन',
+                'np' => 'साउन',
             ),
             '5'  => array(
                 'en' => 'Bhadra',
-                'np' => 'भाद्र',
+                'np' => 'भदौ',
             ),
             '6'  => array(
-                'en' => 'Ashoj',
+                'en' => 'Ashwin',
                 'np' => 'असोज',
             ),
             '7'  => array(
                 'en' => 'Kartik',
-                'np' => 'कार्तिक',
+                'np' => 'कात्तिक',
             ),
             '8'  => array(
-                'en' => 'Mangshir',
+                'en' => 'Mangsir',
                 'np' => 'मंसिर',
             ),
             '9'  => array(
-                'en' => 'Poush',
+                'en' => 'Paush',
                 'np' => 'पुष',
             ),
             '10' => array(
@@ -384,11 +384,11 @@ class NepaliDate
             ),
             '11' => array(
                 'en' => 'Falgun',
-                'np' => 'फाल्गुण',
+                'np' => 'फागुन',
             ),
             '12' => array(
                 'en' => 'Chaitra',
-                'np' => 'चैत्र',
+                'np' => 'चैत',
             ),
         );
 
