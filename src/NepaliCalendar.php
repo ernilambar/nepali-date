@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Calendar class
  *
@@ -411,4 +412,4 @@ class NepaliCalendar
             return $output;
         }
     }
-};
+}

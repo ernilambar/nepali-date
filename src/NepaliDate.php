@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Nepali Date class
  *
@@ -17,7 +18,6 @@ namespace Nilambar\NepaliDate;
  */
 class NepaliDate
 {
-
     /**
      * NepaliCalendar object.
      *
@@ -94,7 +94,7 @@ class NepaliDate
      */
     public function getFormattedDate($date, $format)
     {
-    	return strtr($format, $date);
+        return strtr($format, $date);
     }
 
     /**
@@ -158,9 +158,11 @@ class NepaliDate
                 );
 
                 if (is_array($temp_date) && ! empty($temp_date)) {
-                    if (intval($y) === intval($temp_date['year'])
+                    if (
+                        intval($y) === intval($temp_date['year'])
                         && intval($m) === intval($temp_date['month'])
-                        && intval($d) === intval($temp_date['day'])) {
+                        && intval($d) === intval($temp_date['day'])
+                    ) {
                         $output = $temp_date;
                     }
                 }
@@ -176,9 +178,11 @@ class NepaliDate
                 );
 
                 if (is_array($temp_date) && ! empty($temp_date)) {
-                    if (intval($y) === intval($temp_date['year'])
+                    if (
+                        intval($y) === intval($temp_date['year'])
                         && intval($m) === intval($temp_date['month'])
-                        && intval($d) === intval($temp_date['day'])) {
+                        && intval($d) === intval($temp_date['day'])
+                    ) {
                         $output = $temp_date;
                     }
                 }
