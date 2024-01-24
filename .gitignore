@@ -1,26 +1,58 @@
-# Editors
-project.xml
-project.properties
-/nbproject/private/
-.buildpath
+############
+## IDEs
+############
+
+*.pydevproject
 .project
-.settings*
-.idea
+.metadata
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.externalToolBuilders/
+*.launch
+.cproject
+.buildpath
+nbproject/
 
-# Grunt
-/node_modules/
+############
+## Vendor
+############
 
-# Composer
 vendor/
+build-cs/vendor/
+build-cs/composer.lock
+build-phpunit/vendor/
+build-phpunit/composer.lock
 
-# Docs
-/docs/
+############
+## OSes
+############
 
-# Sass
-.sass-cache/
+[Tt]humbs.db
+[Dd]esktop.ini
+*.DS_store
+.DS_store?
 
-# OS X metadata
-.DS_Store
 
-# Windows junk
-Thumbs.db
+############
+## Misc
+############
+
+tests/logs
+tmp/
+*.tmp
+*.bak
+*.log
+*.[Cc]ache
+*.cpr
+*.orig
+*.php.in
+.idea/
+.sass-cache/*
+temp/
+._*
+.Trashes
+.svn

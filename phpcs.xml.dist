@@ -17,8 +17,11 @@
 	<!-- For CI, don't fail on warnings -->
 	<config name="ignore_warnings_on_exit" value="1"/>
 
-	<!-- Enforce PSR2 standards -->
-	<rule ref="PSR2" >
+	<!-- Enforce PSR12 standards -->
+	<rule ref="PSR12">
 		<exclude name="PSR1.Files.SideEffects"/>
 	</rule>
+
+	<rule ref="PHPCompatibility"/>
+	<config name="testVersion" value="5.6-"/>
 </ruleset>
