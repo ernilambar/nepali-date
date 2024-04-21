@@ -40,9 +40,17 @@
       "composer --working-dir=build-cs update --no-interaction",
       "build-cs/vendor/bin/phpcbf --standard=phpcs.xml.dist"
     ],
+    "format:tests": [
+      "composer --working-dir=build-cs update --no-interaction",
+      "build-cs/vendor/bin/phpcbf --standard=phpcs.tests.xml.dist"
+    ],
     "lint": [
       "composer --working-dir=build-cs update --no-interaction",
       "build-cs/vendor/bin/phpcs --standard=phpcs.xml.dist"
+    ],
+    "lint:tests": [
+      "composer --working-dir=build-cs update --no-interaction",
+      "build-cs/vendor/bin/phpcs --standard=phpcs.tests.xml.dist"
     ],
     "test": [
       "composer --working-dir=build-phpunit update --no-interaction",
