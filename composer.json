@@ -1,13 +1,21 @@
 {
   "name": "ernilambar/nepali-date",
-  "description": "Nepali Date",
+  "description": "Nepali (Bikram Sambat) calendar utilities and BS ↔ AD date conversion for PHP.",
+  "license": "MIT",
+  "type": "library",
   "keywords": [
     "nepali",
+    "nepali-calendar",
     "bikram-sambat",
-    "date"
+    "bs",
+    "ad",
+    "gregorian",
+    "calendar",
+    "date",
+    "converter",
+    "conversion",
+    "date-converter"
   ],
-  "homepage": "https://github.com/ernilambar/nepali-date",
-  "license": "MIT",
   "authors": [
     {
       "name": "Nilambar Sharma",
@@ -16,8 +24,14 @@
       "role": "Developer"
     }
   ],
+  "homepage": "https://github.com/ernilambar/nepali-date",
   "support": {
-    "issues": "https://github.com/ernilambar/nepali-date/issues"
+    "issues": "https://github.com/ernilambar/nepali-date/issues",
+    "source": "https://github.com/ernilambar/nepali-date",
+    "docs": "https://github.com/ernilambar/nepali-date#readme"
+  },
+  "require": {
+    "php": ">=5.6"
   },
   "autoload": {
     "psr-4": {
@@ -29,10 +43,14 @@
       "Nilambar\\NepaliDate\\Test\\": "tests/"
     }
   },
-  "require": {
-    "php": ">=5.6"
-  },
   "config": {
+    "allow-plugins": {
+      "ergebnis/composer-normalize": true
+    },
+    "optimize-autoloader": true,
+    "platform": {
+      "php": "5.6"
+    },
     "sort-packages": true
   },
   "scripts": {

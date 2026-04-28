@@ -47,4 +47,4 @@ $date = $obj->getDetails('2020', '1', '1', 'ad');
 
 This project is licensed under the [MIT](http://opensource.org/licenses/MIT).
 
-2021 &copy; [Nilambar Sharma](https://www.nilambar.net).
+2026 &copy; [Nilambar Sharma](https://www.nilambar.net).
